@@ -1,12 +1,33 @@
 <template>
   <div>Posts pages</div>
+  <ul class="posts">
+      <li v-for="post in posts" v-bind:key="post.id">
+            {{post.title}}
+      </li>
+  </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'Posts'
+  name: 'Posts',
+  data() {
+      return {
+          posts: []
+      }
+  },
+ mounted() {
+      fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'GET'
+      })
+      .then(response => response.json())
+      .then(data => {
+          this.posts = data;
+          console.log(data);
+      })
+      .catch(err => console.log(err.message));
+  }
 });
 </script>
 

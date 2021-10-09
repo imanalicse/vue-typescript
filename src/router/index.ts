@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-import Posts from '../components/Posts.vue';
+import Posts from '@/components/Posts.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,11 +16,8 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-  {
-    path: '/posts',
-    name: 'Posts',
-    component: Posts
-  }
+  { path: '/posts', name: 'Posts', component: Posts },
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/NotFound.vue') },
 ]
 
 const router = createRouter({
